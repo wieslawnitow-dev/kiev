@@ -4,7 +4,8 @@ import CalculatorIsland from "../components/CalculatorIsland";
 import pricingData from "../data/pricing.config.json";
 import optionsData from "../data/calculator-options.json";
 import compatibilityData from "../data/calculator-compatibility.json";
-import { compatibilitySchema, optionsSchema, pricingSchema, type Lang, type PageDefinition } from "../lib/schemas";
+import districtsData from "../data/districts.json";
+import { compatibilitySchema, districtsSchema, optionsSchema, pricingSchema, type Lang, type PageDefinition } from "../lib/schemas";
 
 const { page, lang } = Astro.props as { page: PageDefinition; lang: Lang };
 const seo = page.seo[lang];
@@ -13,6 +14,7 @@ const alternateLang: Lang = lang === "uk" ? "ru" : "uk";
 const pricing = pricingSchema.parse(pricingData);
 const options = optionsSchema.parse(optionsData);
 const compatibility = compatibilitySchema.parse(compatibilityData);
+const districts = districtsSchema.parse(districtsData);
 const currentPath = page.routes[lang];
 const alternatePath = page.routes[alternateLang];
 const nav = lang === "uk"
@@ -20,11 +22,13 @@ const nav = lang === "uk"
       ["/moskitni-sitky-na-vikna/", "На вікна"],
       ["/antykishka-na-balkon/", "Антикішка"],
       ["/zamer-ta-montazh/", "Монтаж"],
+      ["/moskitni-sitky-po-raionakh-kyieva/", "Райони"],
     ]
   : [
       ["/ru/moskitnye-setki-na-okna/", "На окна"],
       ["/ru/antikoshka-na-balkon/", "Антикошка"],
       ["/ru/zamer-i-montazh/", "Монтаж"],
+      ["/ru/moskitnye-setki-po-rajonam-kieva/", "Районы"],
     ];
 ---
 
@@ -66,6 +70,21 @@ const nav = lang === "uk"
             <p>{section.text}</p>
           </section>
         ))}
+
+        {page.key === "kyiv-districts" && (
+          <section class="content-section">
+            <h2>{lang === "uk" ? "Райони обслуговування" : "Районы обслуживания"}</h2>
+            <div class="district-grid">
+              {districts.map((district) => (
+                <article class="district-card">
+                  <h3>{district.label[lang]}</h3>
+                  <p>{district.serviceNote[lang]}</p>
+                  <small>{district.neighborhoods[lang].join(" · ")}</small>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
       </article>
 
       <aside class="calculator-aside" id="calculator">
@@ -76,6 +95,7 @@ const nav = lang === "uk"
           pricing={pricing}
           options={options}
           compatibility={compatibility}
+          districts={districts}
           client:load
         />
       </aside>

@@ -37,7 +37,6 @@ const copy = {
     photo: "Фото",
     submit: "Надіслати заявку",
     from: "від",
-    individual: "Індивідуальна оцінка",
     below: "Розмір нижче мінімального для цієї комплектації.",
   },
   ru: {
@@ -55,18 +54,13 @@ const copy = {
     photo: "Фото",
     submit: "Отправить заявку",
     from: "от",
-    individual: "Индивидуальная оценка",
     below: "Размер ниже минимального для этой комплектации.",
   },
 };
 
-function label(options: { id: string; label: Record<Lang, string> }[], id: string, lang: Lang) {
-  return options.find((option) => option.id === id)?.label[lang] || id;
-}
-
-function newItem(context: CalculatorContext): OrderItem {
+function newItem(context: CalculatorContext, index: number): OrderItem {
   return {
-    id: crypto.randomUUID(),
+    id: `item-${index}`,
     productType: context.productType || "frame",
     objectType: context.objectType || "window",
     mesh: context.mesh || "standard",
@@ -78,7 +72,7 @@ function newItem(context: CalculatorContext): OrderItem {
 
 export default function CalculatorIsland({ lang, pageKey, context, pricing, options, compatibility }: Props) {
   const t = copy[lang];
-  const [items, setItems] = useState<OrderItem[]>([newItem(context)]);
+  const [items, setItems] = useState<OrderItem[]>([newItem(context, 1)]);
   const [services, setServices] = useState<string[]>(context.services || []);
   const [contact, setContact] = useState("");
   const [comment, setComment] = useState("");
@@ -104,8 +98,17 @@ export default function CalculatorIsland({ lang, pageKey, context, pricing, opti
       services: [],
     }),
   );
-  const serviceEstimate = estimate({ context, pricing, compatibility, productType: activeItem.productType, objectType: activeItem.objectType, mesh: activeItem.mesh, services });
-  const total = itemEstimates.reduce((sum, item) => sum + item.price, 0) + (serviceEstimate.price - itemEstimates[itemEstimates.length - 1].price);
+  const activeServiceEstimate = estimate({
+    context,
+    pricing,
+    compatibility,
+    productType: activeItem.productType,
+    objectType: activeItem.objectType,
+    mesh: activeItem.mesh,
+    services,
+  });
+  const activeProductEstimate = itemEstimates[itemEstimates.length - 1];
+  const total = itemEstimates.reduce((sum, item) => sum + item.price, 0) + (activeServiceEstimate.price - activeProductEstimate.price);
   const hasFrom = itemEstimates.some((item) => item.isFrom);
   const hasBelowMinimum = itemEstimates.some((item) => item.status === "below-minimum");
 
@@ -114,7 +117,7 @@ export default function CalculatorIsland({ lang, pageKey, context, pricing, opti
   }
 
   function addPosition() {
-    setItems((current) => [...current, newItem(context)]);
+    setItems((current) => [...current, newItem(context, current.length + 1)]);
   }
 
   function toggleService(serviceId: string) {

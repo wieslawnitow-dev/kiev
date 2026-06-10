@@ -1,0 +1,84 @@
+---
+import "../styles/global.css";
+import CalculatorIsland from "../components/CalculatorIsland";
+import pricingData from "../data/pricing.config.json";
+import optionsData from "../data/calculator-options.json";
+import compatibilityData from "../data/calculator-compatibility.json";
+import { compatibilitySchema, optionsSchema, pricingSchema, type Lang, type PageDefinition } from "../lib/schemas";
+
+const { page, lang } = Astro.props as { page: PageDefinition; lang: Lang };
+const seo = page.seo[lang];
+const content = page.content[lang];
+const alternateLang: Lang = lang === "uk" ? "ru" : "uk";
+const pricing = pricingSchema.parse(pricingData);
+const options = optionsSchema.parse(optionsData);
+const compatibility = compatibilitySchema.parse(compatibilityData);
+const currentPath = page.routes[lang];
+const alternatePath = page.routes[alternateLang];
+const nav = lang === "uk"
+  ? [
+      ["/moskitni-sitky-na-vikna/", "На вікна"],
+      ["/antykishka-na-balkon/", "Антикішка"],
+      ["/zamer-ta-montazh/", "Монтаж"],
+    ]
+  : [
+      ["/ru/moskitnye-setki-na-okna/", "На окна"],
+      ["/ru/antikoshka-na-balkon/", "Антикошка"],
+      ["/ru/zamer-i-montazh/", "Монтаж"],
+    ];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <link rel="canonical" href={currentPath} />
+    <link rel="alternate" hreflang="uk" href={page.routes.uk} />
+    <link rel="alternate" hreflang="ru" href={page.routes.ru} />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href={lang === "uk" ? "/" : "/ru/"}>Москітки Київ</a>
+      <nav aria-label={lang === "uk" ? "Головна навігація" : "Главная навигация"}>
+        {nav.map(([href, label]) => <a href={href}>{label}</a>)}
+      </nav>
+      <a class="language-link" href={alternatePath}>{alternateLang === "uk" ? "UA" : "RU"}</a>
+    </header>
+
+    <main class="page-shell">
+      <article class="page-main">
+        <section class="hero">
+          <p class="eyebrow">{page.cluster} · Київ</p>
+          <h1>{content.h1}</h1>
+          <p class="lead">{content.lead}</p>
+          <div class="hero-actions">
+            <a class="button" href="#calculator">{lang === "uk" ? "Розрахувати" : "Рассчитать"}</a>
+            <a class="soft-link" href={lang === "uk" ? "/zamer-ta-montazh/" : "/ru/zamer-i-montazh/"}>{lang === "uk" ? "Замір і монтаж" : "Замер и монтаж"}</a>
+          </div>
+        </section>
+
+        {content.sections.map((section) => (
+          <section class="content-section">
+            <h2>{section.title}</h2>
+            <p>{section.text}</p>
+          </section>
+        ))}
+      </article>
+
+      <aside class="calculator-aside" id="calculator">
+        <CalculatorIsland
+          lang={lang}
+          pageKey={page.key}
+          context={page.calculator}
+          pricing={pricing}
+          options={options}
+          compatibility={compatibility}
+          client:load
+        />
+      </aside>
+    </main>
+  </body>
+</html>

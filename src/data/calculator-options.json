@@ -1,0 +1,51 @@
+{
+  "productTypes": [
+    { "id": "frame", "label": { "uk": "Рамкова", "ru": "Рамочная" } },
+    { "id": "roller", "label": { "uk": "Рулонна", "ru": "Рулонная" } },
+    { "id": "pleated", "label": { "uk": "Плісе", "ru": "Плиссе" } },
+    { "id": "door", "label": { "uk": "Дверна", "ru": "Дверная" } },
+    { "id": "sliding", "label": { "uk": "Розсувна", "ru": "Раздвижная" } }
+  ],
+  "objectTypes": [
+    { "id": "window", "label": { "uk": "Вікно", "ru": "Окно" } },
+    { "id": "plastic-window", "label": { "uk": "Пластикове вікно", "ru": "Пластиковое окно" } },
+    { "id": "wooden-window", "label": { "uk": "Дерев'яне вікно", "ru": "Деревянное окно" } },
+    { "id": "balcony", "label": { "uk": "Балкон", "ru": "Балкон" } },
+    { "id": "balcony-door", "label": { "uk": "Балконні двері", "ru": "Балконная дверь" } },
+    { "id": "terrace", "label": { "uk": "Тераса", "ru": "Терраса" } },
+    { "id": "sliding-door", "label": { "uk": "Розсувні двері", "ru": "Раздвижная дверь" } },
+    { "id": "roof-window", "label": { "uk": "Мансардне вікно", "ru": "Мансардное окно" } },
+    { "id": "door", "label": { "uk": "Двері", "ru": "Дверь" } },
+    { "id": "garage", "label": { "uk": "Ворота / гараж", "ru": "Ворота / гараж" } },
+    { "id": "ventilation", "label": { "uk": "Вентиляція / технічний проріз", "ru": "Вентиляция / технический проем" } }
+  ],
+  "meshes": [
+    { "id": "standard", "label": { "uk": "Стандартне", "ru": "Стандартное" } },
+    { "id": "pet", "label": { "uk": "Антикішка", "ru": "Антикошка" } },
+    { "id": "pollen", "label": { "uk": "Антипил", "ru": "Антипыль" } },
+    { "id": "micro", "label": { "uk": "Від мошки / дрібна сітка", "ru": "От мошки / мелкая сетка" } }
+  ],
+  "frameColors": [
+    { "id": "white", "label": { "uk": "Білий", "ru": "Белый" } },
+    { "id": "brown", "label": { "uk": "Коричневий", "ru": "Коричневый" } },
+    { "id": "anthracite", "label": { "uk": "Антрацит", "ru": "Антрацит" } },
+    { "id": "ral", "label": { "uk": "RAL / інший", "ru": "RAL / другой" } }
+  ],
+  "profileTypes": [
+    { "id": "standard", "label": { "uk": "Стандартний", "ru": "Стандартный" } },
+    { "id": "slim", "label": { "uk": "Низький / slim", "ru": "Низкий / slim" } },
+    { "id": "reinforced", "label": { "uk": "Посилений", "ru": "Усиленный" } }
+  ],
+  "fasteners": [
+    { "id": "hooks", "label": { "uk": "Поворотні зачепи", "ru": "Поворотные зацепы" } },
+    { "id": "magnets", "label": { "uk": "Магніти", "ru": "Магниты" } },
+    { "id": "guides", "label": { "uk": "Напрямні", "ru": "Направляющие" } }
+  ],
+  "services": [
+    { "id": "self-measure", "label": { "uk": "Самозамір", "ru": "Самозамер" } },
+    { "id": "delivery", "label": { "uk": "Доставка", "ru": "Доставка" } },
+    { "id": "measurement", "label": { "uk": "Замір", "ru": "Замер" } },
+    { "id": "installation", "label": { "uk": "Монтаж", "ru": "Монтаж" } },
+    { "id": "turnkey", "label": { "uk": "Під ключ", "ru": "Под ключ" } }
+  ]
+}

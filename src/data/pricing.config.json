@@ -1,0 +1,64 @@
+{
+  "currency": "грн",
+  "products": {
+    "frame": {
+      "label": { "uk": "Рамкова", "ru": "Рамочная" },
+      "basePrice": 250,
+      "perM2": 520,
+      "minPrice": 650,
+      "quantityDiscounts": [
+        { "minQuantity": 3, "multiplier": 0.95 },
+        { "minQuantity": 5, "multiplier": 0.9 }
+      ]
+    },
+    "roller": {
+      "label": { "uk": "Рулонна", "ru": "Рулонная" },
+      "basePrice": 900,
+      "perM2": 750,
+      "minPrice": 1650,
+      "quantityDiscounts": [
+        { "minQuantity": 3, "multiplier": 0.96 }
+      ]
+    },
+    "pleated": {
+      "label": { "uk": "Плісе", "ru": "Плиссе" },
+      "basePrice": 1800,
+      "perM2": 1100,
+      "minPrice": 3200,
+      "quantityDiscounts": [
+        { "minQuantity": 2, "multiplier": 0.97 }
+      ]
+    },
+    "door": {
+      "label": { "uk": "Дверна", "ru": "Дверная" },
+      "basePrice": 1200,
+      "perM2": 850,
+      "minPrice": 2500,
+      "quantityDiscounts": [
+        { "minQuantity": 2, "multiplier": 0.97 }
+      ]
+    },
+    "sliding": {
+      "label": { "uk": "Розсувна", "ru": "Раздвижная" },
+      "basePrice": 2100,
+      "perM2": 1200,
+      "minPrice": 3900,
+      "quantityDiscounts": [
+        { "minQuantity": 2, "multiplier": 0.97 }
+      ]
+    }
+  },
+  "meshes": {
+    "standard": { "label": { "uk": "Стандартне", "ru": "Стандартное" }, "multiplier": 1 },
+    "pet": { "label": { "uk": "Антикішка", "ru": "Антикошка" }, "multiplier": 1.28 },
+    "pollen": { "label": { "uk": "Антипил", "ru": "Антипыль" }, "multiplier": 1.22 },
+    "micro": { "label": { "uk": "Від мошки", "ru": "От мошки" }, "multiplier": 1.18 }
+  },
+  "services": {
+    "self-measure": { "label": { "uk": "Самозамір", "ru": "Самозамер" }, "price": 0 },
+    "delivery": { "label": { "uk": "Доставка", "ru": "Доставка" }, "price": 250 },
+    "measurement": { "label": { "uk": "Замір", "ru": "Замер" }, "price": 300 },
+    "installation": { "label": { "uk": "Монтаж", "ru": "Монтаж" }, "price": 500 },
+    "turnkey": { "label": { "uk": "Під ключ", "ru": "Под ключ" }, "price": 700 }
+  }
+}

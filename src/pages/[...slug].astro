@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { pageSchema, type Lang } from "../lib/schemas";
+
+const pageModules = import.meta.glob("../content/pages/**/*.mdx");
+
+export async function getStaticPaths() {
+  const paths = [];
+
+  for (const [modulePath, loadPage] of Object.entries(pageModules)) {
+    const page = await loadPage() as { frontmatter?: unknown };
+    const frontmatter = pageSchema.parse(page.frontmatter);
+
+    for (const lang of ["uk", "ru"] as Lang[]) {
+      const route = frontmatter.routes[lang];
+      const slug = route === "/" ? undefined : route.replace(/^\/|\/$/g, "");
+      paths.push({ params: { slug }, props: { modulePath, lang } });
+    }
+  }
+
+  return paths;
+}
+
+const { modulePath, lang } = Astro.props as { modulePath: string; lang: Lang };
+const page = await pageModules[modulePath]() as { frontmatter?: unknown };
+const frontmatter = pageSchema.parse(page.frontmatter);
+---
+
+<BaseLayout page={frontmatter} lang={lang} />

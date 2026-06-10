@@ -60,5 +60,12 @@
     "measurement": { "label": { "uk": "Замір", "ru": "Замер" }, "price": 300 },
     "installation": { "label": { "uk": "Монтаж", "ru": "Монтаж" }, "price": 500 },
     "turnkey": { "label": { "uk": "Під ключ", "ru": "Под ключ" }, "price": 700 }
+  },
+  "districtServiceSurcharges": {
+    "pecherskyi": { "delivery": 50, "measurement": 50 },
+    "shevchenkivskyi": { "delivery": 50, "measurement": 50 },
+    "desnianskyi": { "delivery": 80 },
+    "darnytskyi": { "delivery": 60 },
+    "holosiivskyi": { "delivery": 60 }
   }
 }

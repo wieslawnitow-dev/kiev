@@ -10,6 +10,9 @@ export const calculatorContextSchema = z.object({
   productType: z.string().optional(),
   objectType: z.string().optional(),
   mesh: z.string().optional(),
+  frameColor: z.string().optional(),
+  profileType: z.string().optional(),
+  fastener: z.string().optional(),
   district: z.string().optional(),
   services: z.array(z.string()).default([]),
   fixed: z.record(z.string(), z.string()).default({}),
@@ -80,6 +83,11 @@ const quantityDiscountSchema = z.object({
   multiplier: z.number().positive(),
 });
 
+const priceModifierSchema = z.object({
+  multiplier: z.number().positive().default(1),
+  fixed: z.number().nonnegative().default(0),
+});
+
 export const pricingSchema = z.object({
   currency: z.string().min(1),
   products: z.record(z.string(), z.object({
@@ -98,6 +106,11 @@ export const pricingSchema = z.object({
     label: localizedTextSchema,
     price: z.number().nonnegative(),
   })),
+  modifiers: z.object({
+    frameColors: z.record(z.string(), priceModifierSchema).default({}),
+    profileTypes: z.record(z.string(), priceModifierSchema).default({}),
+    fasteners: z.record(z.string(), priceModifierSchema).default({}),
+  }).default({ frameColors: {}, profileTypes: {}, fasteners: {} }),
   districtServiceSurcharges: z.record(z.string(), z.record(z.string(), z.number().nonnegative())).default({}),
 });
 export type PricingConfig = z.infer<typeof pricingSchema>;

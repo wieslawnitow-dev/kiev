@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { allowedMeshesFor, allowedProductsFor, estimate } from "../lib/calculator";
-import type { CalculatorContext, CalculatorOptions, CompatibilityConfig, Lang, PricingConfig } from "../lib/schemas";
+import type { CalculatorContext, CalculatorOptions, CompatibilityConfig, District, Lang, PricingConfig } from "../lib/schemas";
 
 type Props = {
   lang: Lang;
@@ -9,6 +9,7 @@ type Props = {
   pricing: PricingConfig;
   options: CalculatorOptions;
   compatibility: CompatibilityConfig;
+  districts: District[];
 };
 
 type OrderItem = {
@@ -32,6 +33,9 @@ const copy = {
     quantity: "Кількість",
     services: "Послуги",
     add: "Додати позицію",
+    district: "Район Києва",
+    districtPlaceholder: "Не обрано / уточню в коментарі",
+    address: "Адреса або орієнтир",
     contact: "Контакт",
     comment: "Коментар",
     photo: "Фото",
@@ -49,6 +53,9 @@ const copy = {
     quantity: "Количество",
     services: "Услуги",
     add: "Добавить позицию",
+    district: "Район Киева",
+    districtPlaceholder: "Не выбран / уточню в комментарии",
+    address: "Адрес или ориентир",
     contact: "Контакт",
     comment: "Комментарий",
     photo: "Фото",
@@ -70,10 +77,12 @@ function newItem(context: CalculatorContext, index: number): OrderItem {
   };
 }
 
-export default function CalculatorIsland({ lang, pageKey, context, pricing, options, compatibility }: Props) {
+export default function CalculatorIsland({ lang, pageKey, context, pricing, options, compatibility, districts }: Props) {
   const t = copy[lang];
   const [items, setItems] = useState<OrderItem[]>([newItem(context, 1)]);
   const [services, setServices] = useState<string[]>(context.services || []);
+  const [district, setDistrict] = useState(context.district || "");
+  const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
   const [comment, setComment] = useState("");
   const activeItem = items[items.length - 1];
@@ -105,6 +114,7 @@ export default function CalculatorIsland({ lang, pageKey, context, pricing, opti
     productType: activeItem.productType,
     objectType: activeItem.objectType,
     mesh: activeItem.mesh,
+    district,
     services,
   });
   const activeProductEstimate = itemEstimates[itemEstimates.length - 1];
@@ -185,6 +195,14 @@ export default function CalculatorIsland({ lang, pageKey, context, pricing, opti
 
         <button className="secondary-button" type="button" onClick={addPosition}>{t.add}</button>
 
+        <label>
+          {t.district}
+          <select name="district" value={district} onChange={(event) => setDistrict(event.target.value)}>
+            <option value="">{t.districtPlaceholder}</option>
+            {districts.map((item) => <option value={item.id} key={item.id}>{item.label[lang]}</option>)}
+          </select>
+        </label>
+        <label>{t.address}<input name="address" value={address} onChange={(event) => setAddress(event.target.value)} /></label>
         <label>{t.contact}<input name="contact" value={contact} onChange={(event) => setContact(event.target.value)} required /></label>
         <label>{t.comment}<textarea name="comment" value={comment} onChange={(event) => setComment(event.target.value)} /></label>
         <label>{t.photo}<input name="photo" type="file" accept="image/*" /></label>

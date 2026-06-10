@@ -2,9 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { pageSchema, type Lang } from "../lib/schemas";
 
-const pageModules = import.meta.glob("../content/pages/**/*.mdx");
-
 export async function getStaticPaths() {
+  const pageModules = import.meta.glob("../content/pages/**/*.mdx");
   const paths = [];
 
   for (const [modulePath, loadPage] of Object.entries(pageModules)) {
@@ -21,6 +20,7 @@ export async function getStaticPaths() {
   return paths;
 }
 
+const pageModules = import.meta.glob("../content/pages/**/*.mdx");
 const { modulePath, lang } = Astro.props as { modulePath: string; lang: Lang };
 const page = await pageModules[modulePath]() as { frontmatter?: unknown };
 const frontmatter = pageSchema.parse(page.frontmatter);

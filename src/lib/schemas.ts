@@ -10,6 +10,7 @@ export const calculatorContextSchema = z.object({
   productType: z.string().optional(),
   objectType: z.string().optional(),
   mesh: z.string().optional(),
+  district: z.string().optional(),
   services: z.array(z.string()).default([]),
   fixed: z.record(z.string(), z.string()).default({}),
   disabled: z.array(z.string()).default([]),
@@ -40,6 +41,15 @@ export const optionSchema = z.object({
   id: z.string().min(1),
   label: localizedTextSchema,
 });
+
+export const districtSchema = z.object({
+  id: z.string().min(1),
+  label: localizedTextSchema,
+  neighborhoods: z.record(langSchema, z.array(z.string()).default([])),
+  serviceNote: localizedTextSchema,
+});
+export const districtsSchema = z.array(districtSchema);
+export type District = z.infer<typeof districtSchema>;
 
 export const optionsSchema = z.object({
   productTypes: z.array(optionSchema),
@@ -88,5 +98,6 @@ export const pricingSchema = z.object({
     label: localizedTextSchema,
     price: z.number().nonnegative(),
   })),
+  districtServiceSurcharges: z.record(z.string(), z.record(z.string(), z.number().nonnegative())).default({}),
 });
 export type PricingConfig = z.infer<typeof pricingSchema>;

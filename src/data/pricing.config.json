@@ -61,6 +61,24 @@
     "installation": { "label": { "uk": "Монтаж", "ru": "Монтаж" }, "price": 500 },
     "turnkey": { "label": { "uk": "Під ключ", "ru": "Под ключ" }, "price": 700 }
   },
+  "modifiers": {
+    "frameColors": {
+      "white": { "multiplier": 1, "fixed": 0 },
+      "brown": { "multiplier": 1.04, "fixed": 0 },
+      "anthracite": { "multiplier": 1.06, "fixed": 0 },
+      "ral": { "multiplier": 1.12, "fixed": 120 }
+    },
+    "profileTypes": {
+      "standard": { "multiplier": 1, "fixed": 0 },
+      "slim": { "multiplier": 1.06, "fixed": 0 },
+      "reinforced": { "multiplier": 1.14, "fixed": 150 }
+    },
+    "fasteners": {
+      "hooks": { "multiplier": 1, "fixed": 0 },
+      "magnets": { "multiplier": 1.04, "fixed": 60 },
+      "guides": { "multiplier": 1.1, "fixed": 120 }
+    }
+  },
   "districtServiceSurcharges": {
     "pecherskyi": { "delivery": 50, "measurement": 50 },
     "shevchenkivskyi": { "delivery": 50, "measurement": 50 },

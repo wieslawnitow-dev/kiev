@@ -1,0 +1,40 @@
+{
+  "products": {
+    "frame": {
+      "allowedObjects": ["window", "plastic-window", "wooden-window", "balcony", "roof-window", "ventilation"],
+      "allowedMeshes": ["standard", "pet", "pollen", "micro"],
+      "minWidthMm": 400,
+      "minHeightMm": 400
+    },
+    "roller": {
+      "allowedObjects": ["window", "plastic-window", "wooden-window", "roof-window"],
+      "allowedMeshes": ["standard", "pollen", "micro"],
+      "minWidthMm": 500,
+      "minHeightMm": 500
+    },
+    "pleated": {
+      "allowedObjects": ["balcony-door", "terrace", "sliding-door", "door", "balcony"],
+      "allowedMeshes": ["standard", "pollen", "micro"],
+      "minWidthMm": 650,
+      "minHeightMm": 1600
+    },
+    "door": {
+      "allowedObjects": ["door", "balcony-door", "terrace", "balcony"],
+      "allowedMeshes": ["standard", "pet", "micro"],
+      "minWidthMm": 650,
+      "minHeightMm": 1600
+    },
+    "sliding": {
+      "allowedObjects": ["sliding-door", "terrace", "garage"],
+      "allowedMeshes": ["standard", "pet", "micro"],
+      "minWidthMm": 800,
+      "minHeightMm": 1700
+    }
+  },
+  "meshes": {
+    "standard": { "allowedProducts": ["frame", "roller", "pleated", "door", "sliding"] },
+    "pet": { "allowedProducts": ["frame", "door", "sliding"] },
+    "pollen": { "allowedProducts": ["frame", "roller", "pleated"] },
+    "micro": { "allowedProducts": ["frame", "roller", "pleated", "door", "sliding"] }
+  }
+}

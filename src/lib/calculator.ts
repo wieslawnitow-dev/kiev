@@ -7,6 +7,7 @@ export type EstimateInput = {
   productType?: string;
   objectType?: string;
   mesh?: string;
+  district?: string;
   widthMm?: number;
   heightMm?: number;
   quantity?: number;
@@ -31,10 +32,17 @@ function quantityMultiplier(discounts: { minQuantity: number; multiplier: number
     .sort((a, b) => b.minQuantity - a.minQuantity)[0]?.multiplier ?? 1;
 }
 
+function servicePrice(pricing: PricingConfig, district: string | undefined, serviceId: string) {
+  const base = pricing.services[serviceId]?.price || 0;
+  const districtSurcharge = district ? pricing.districtServiceSurcharges[district]?.[serviceId] || 0 : 0;
+  return base + districtSurcharge;
+}
+
 export function estimate(input: EstimateInput) {
   const productType = input.productType || input.context.productType || "frame";
   const objectType = input.objectType || input.context.objectType || "window";
   const mesh = input.mesh || input.context.mesh || "standard";
+  const district = input.district || input.context.district;
   const quantity = Math.max(1, input.quantity || 1);
   const productRules = input.compatibility.products[productType];
   const productPrice = input.pricing.products[productType];
@@ -62,7 +70,8 @@ export function estimate(input: EstimateInput) {
   const meshMultiplier = input.pricing.meshes[mesh]?.multiplier ?? 1;
   const unit = Math.max(productPrice.minPrice || 0, (productPrice.basePrice || 0) + areaM2 * (productPrice.perM2 || 0) * meshMultiplier);
   const productsTotal = Math.round(unit * quantity * quantityMultiplier(productPrice.quantityDiscounts, quantity));
-  const serviceTotal = (input.services || input.context.services || []).reduce((sum, serviceId) => sum + (input.pricing.services[serviceId]?.price || 0), 0);
+  const selectedServices = input.services || input.context.services || [];
+  const serviceTotal = selectedServices.reduce((sum, serviceId) => sum + servicePrice(input.pricing, district, serviceId), 0);
 
   return {
     status: "priced" as const,

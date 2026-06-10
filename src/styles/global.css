@@ -64,6 +64,7 @@ h1 {
   letter-spacing: 0;
 }
 h2 { margin: 0 0 12px; font-size: 1.45rem; }
+h3 { margin: 0; font-size: 1.05rem; }
 .lead {
   max-width: 720px;
   color: var(--muted);
@@ -85,6 +86,20 @@ h2 { margin: 0 0 12px; font-size: 1.45rem; }
   border-bottom: 1px solid var(--line);
 }
 .content-section p { max-width: 760px; color: var(--muted); line-height: 1.75; }
+.district-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+.district-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 253, 248, 0.7);
+  padding: 16px;
+}
+.district-card p { margin: 8px 0; line-height: 1.55; }
+.district-card small { color: var(--muted); line-height: 1.5; }
 .calculator-aside { position: sticky; top: 88px; align-self: start; }
 .calculator-card {
   border: 1px solid var(--line);
@@ -119,6 +134,9 @@ legend { padding: 0 6px; font-weight: 800; }
   nav { order: 3; width: 100%; overflow-x: auto; padding-bottom: 4px; }
   .page-shell { grid-template-columns: 1fr; }
   .calculator-aside { position: static; }
+}
+@media (max-width: 640px) {
+  .district-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 520px) {
   .measure-grid { grid-template-columns: 1fr; }
